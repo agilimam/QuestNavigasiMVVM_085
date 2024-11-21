@@ -2,7 +2,7 @@ package model
 
 data class DataMahasiswa(
     val nama: String = "",
-    val
+    val nim: String = "",
     val gender: String = "",
     val alamat:String="",
     )
