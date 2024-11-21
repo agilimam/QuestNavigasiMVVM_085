@@ -1,12 +1,15 @@
 package com.example.pertemuan7
 
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.example.pertemuan7.ui.viewmodel.MahasiswaViewModel
+import com.example.arsitektumvvm.ui.viewmodel.MahasiswaViewModel
+
 
 enum class  Halaman {
     Formulir,
@@ -15,16 +18,9 @@ enum class  Halaman {
 @Composable
 fun PengelolaHalaman(
     navController: NavController = rememberNavController(),
-    viewModel: MahasiswaViewModel = viewModel()
+    viewModel: MahasiswaViewModel = viewModel(),
+    navHost: NavHostController = rememberNavController()
 ){
-    val stateUi by view
-    NavHost(navController = navController, startDestination = Halaman.Formulir.name) {
-        composable(route = Halaman.Formulir.name)
-        val konteks = LocalContext.current
-        MainScren(
-            listJK = DataJenisKelamin.listJK.map{id->
-                konteks.resources.getString()
-            }
-        )
-    }
+    Scaffold {  }
+
 }
