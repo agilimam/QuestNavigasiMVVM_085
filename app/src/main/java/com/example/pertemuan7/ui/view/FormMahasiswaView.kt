@@ -31,10 +31,11 @@ fun FormMahasiswaView(
     var nama by rememberSaveable { mutableStateOf("") }
     var nim by rememberSaveable { mutableStateOf("") }
     var alamat by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
     var selectedGender by rememberSaveable { mutableStateOf("") }
 
 
-    val dataMahasiswa : MutableList<String> = mutableListOf(nama ,selectedGender,nim,alamat)
+    val dataMahasiswa : MutableList<String> = mutableListOf(nama ,selectedGender,nim,email,alamat)
 
     Column (
         Modifier.fillMaxSize().padding(16.dp),
@@ -66,6 +67,13 @@ fun FormMahasiswaView(
             onValueChange = {nim = it},
             label = { Text("NIM") },
             placeholder = { Text("Masukkan NIM") },
+            modifier = Modifier.fillMaxWidth().padding(5.dp)
+        )
+        OutlinedTextField(
+            value = email,
+            onValueChange = {email = it},
+            label = { Text("Email") },
+            placeholder = { Text("Masukkan Email") },
             modifier = Modifier.fillMaxWidth().padding(5.dp)
         )
         OutlinedTextField(
