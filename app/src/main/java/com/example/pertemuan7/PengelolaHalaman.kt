@@ -1,4 +1,4 @@
-package com.example.pertemuan7
+package com.example.arsitektumvvm
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -8,50 +8,55 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
+import androidx.navigation.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.arsitektumvvm.ui.viewmodel.MahasiswaViewModel
+import com.example.pertemuan7.ui.view.DataMahasiswaView
+import com.example.pertemuan7.ui.view.FormMahasiswaView
 import model.DataKelamin
-import model.DataMahasiswa
 
-
-enum class  Halaman {
+enum class Halaman{
     Formulir,
     Detail,
 }
+
 @Composable
-fun PengelolaHalaman(
-    navController: NavController = rememberNavController(),
-    viewModel: MahasiswaViewModel = viewModel(),
-    navHost: NavHostController = rememberNavController()
+fun PengelolaanHalaman(
+    modifier: Modifier = Modifier,
+    navHost: NavHostController = rememberNavController(),
+    viewModel: MahasiswaViewModel = viewModel()
 ){
     Scaffold { isipadding ->
-        val  uiState by viewModel.uiState.collectAsState()
+        val uiState by viewModel.uiState.collectAsState()
         NavHost(
             modifier = modifier.padding(isipadding),
             navController = navHost, startDestination = Halaman.Formulir.name
         ) {
-            composable(route= Halaman.Formulir.name){
+            composable(route = Halaman.Formulir.name) {
                 val konteks = LocalContext.current
-                FormulirView(
-
-                    //dibawh ini merupakan parameter halaman formulirview
-                    pilihanJK = DataKelamin.listJK.map {
-                        list -> konteks.resources.getString(list)
+                FormMahasiswaView(
+                    listJk =  DataKelamin.listJK.map {
+                            isi -> konteks.resources.getString(isi)
                     },
-                    onClickButton = {
+                    onSubmitClicked = {
                         viewModel.saveDataMahasiswa(it)
                         navHost.navigate(Halaman.Detail.name)
                     }
                 )
-
             }
-
-
+            composable(route = Halaman.Detail.name){
+                DataMahasiswaView(
+                    uiStateMahasiswa = uiState,
+                    onClikButton = {
+                        navHost.popBackStack()
+                    }
+                )
+            }
         }
     }
-
 }
+
+
