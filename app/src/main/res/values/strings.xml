@@ -9,4 +9,5 @@
     <string name="gender">Jenis Kelamin</string>
     <string name="detail">Data Siswa</string>
     <string name="nim">Nim</string>
+    <string name="email">Email</string>
 </resources>
