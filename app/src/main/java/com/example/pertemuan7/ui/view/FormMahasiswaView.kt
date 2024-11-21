@@ -1,12 +1,11 @@
 package com.example.pertemuan7.ui.view
 
-import androidx.compose.foundation.layout.Arrangement
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
@@ -19,7 +18,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 
 
@@ -31,11 +29,12 @@ fun FormMahasiswaView(
 
 ){
     var nama by rememberSaveable { mutableStateOf("") }
-    var gender by remember { mutableStateOf("") }
     var nim by rememberSaveable { mutableStateOf("") }
     var alamat by remember { mutableStateOf("") }
+    var selectedGender by rememberSaveable { mutableStateOf("") }
 
-    val dataMahasiswa : MutableList<String> = mutableListOf(nama ,gender,nim,alamat)
+
+    val dataMahasiswa : MutableList<String> = mutableListOf(nama ,selectedGender,nim,alamat)
 
     Column (
         Modifier.fillMaxSize().padding(16.dp),
@@ -52,9 +51,9 @@ fun FormMahasiswaView(
             listJk.forEach { item ->
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     RadioButton(
-                        selected = gender == item,
+                        selected = selectedGender == item,
                         onClick = {
-                            gender = item
+                            selectedGender = item
                         })
                     Text(item)
                 }
@@ -80,21 +79,4 @@ fun FormMahasiswaView(
         { Text("Simpan") }
     }
 
-}
-@Composable
-fun CardSection(judulParam : String, Isiparams : String){
-    Column(
-        horizontalAlignment = Alignment.Start
-    ) {
-
-        Row(
-            modifier = Modifier.fillMaxWidth().padding(5.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(text = judulParam, modifier = Modifier.weight(0.8f))
-            Text(text = ":", modifier = Modifier.weight(0.2f))
-            Text(text = "$Isiparams", modifier = Modifier.weight(2f))
-            }
-
-        }
 }
