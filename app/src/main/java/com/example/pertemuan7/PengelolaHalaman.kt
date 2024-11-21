@@ -11,8 +11,11 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.arsitektumvvm.ui.viewmodel.MahasiswaViewModel
+import model.DataKelamin
+import model.DataMahasiswa
 
 
 enum class  Halaman {
@@ -30,7 +33,18 @@ fun PengelolaHalaman(
         NavHost(
             modifier = modifier.padding(isipadding),
             navController = navHost, startDestination = Halaman.Formulir.name
-        ){
+        ) {
+            composable(route= Halaman.Formulir.name){
+                val konteks = LocalContext.current
+                FormulirView(
+
+                    //dibawh ini merupakan parameter halaman formulirview
+                    pilihanJK = DataKelamin.listJK.map {
+                        list -> konteks.resources.getString(list)
+                    },
+                )
+
+            }
 
 
         }
